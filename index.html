@@ -25,33 +25,14 @@
         
           <br />
 
-          By answering a few questions you will know your GIGA SCORE.
-        
-          <br /><br /><br />
+          <span class="welcome_msg">To get your Giga Score answer ten questions.</span>
+          <br />
         
           <span class="btn_start">START</span>
         </div>
       </div><!-- center screen-->
 
 
-
-        <div class="test test_userinfo" style="display:none">
-          <div class="test_question center">
-          First of all, we need you to provide us some information about yourself.
-          <br /><br />
-
-          @ <input type="text" id="usertwitter" name="usertwitter" placeholder="Your Twitter handle">
-          <br /><br />
-
-          <input type="text" id="usertezos" name="usertezos" placeholder="Your tezos address">
-
-          <br /><br />
-
-          <span class="btn btn_sendinfo">SUBMIT INFO AND CONTINUE</span>
-
-
-        </div>
-        </div><!-- test user info-->
 
         <div class="test"  style="display:none">
 
@@ -126,27 +107,37 @@
         </div><!-- test submit-->
       </div><!-- test -->
 
-
-
-
-
       <br />
 
-      <div class="lightbox" style="display:none;">
-        <div class="socialscore" style="display:none;">
-          <span class="close">x</span>
-          YOUR GIGA SCORE IS:
+     <!-- <div class="lightbox" style="visibility: hidden;">-->
+        <div class="socialscore container hidden">
+          <span class="close">◀</span>
+          YOUR GIGA SCORE IS: <span class="yoursocialscore">0</span>
           <br /><br />
-          <span class="yoursocialscore">0</span>
-          <br /><br />
-          Now you can create your own Gigatura card.<br />
-          Just upload your desired selfie or avatar (must be squared 1:1).
+
+
+          <!-- TEXTS for each result -->
+
+          <div id="text_jail" class="text_score" style="display:none">Oh no! You've landed in Gigacorp's prison!</div>
+          <div id="text_rebel"  class="text_score" style="display:none">You are a rebel!</div>
+          <div id="text_hacker"  class="text_score" style="display:none">You are a hacker, which side will you take?</div>
+          <div id="text_factory"  class="text_score" style="display:none">Congratulations! You've been hired to work at the WAGMI restaurant! Your shift starts on Monday morning at 9 am.</div>
+          <div id="text_wagmi"  class="text_score" style="display:none">Congratulations! You've been hired to work at the WAGMI restaurant! Your shift starts on Monday morning at 9 am. Don't forget to take your GOMA.</div>
+          <div id="text_military"  class="text_score" style="display:none">You have joined the Gigacorp military.</div>
+          <div id="text_royalty"  class="text_score" style="display:none">You are part of Gigacorp Royalty. Enjoy the benefits, (like infinite GOMA). </div>
+
+
+
+
+          Now upload your avatar or selfie to finish. Your image should be square.<br />
+          We will save and add your image to the Gigatura People's collage.
           <br /><br />
 
           <form method="POST" enctype="multipart/form-data">
             <input type="file" id="photo" accept="image/*" class="upload" />
           </form>
           
+
           <div id="ga_container">
             <div id="gigatura_avatar">
               
@@ -158,18 +149,28 @@
             </div><!-- gigatura avatar-->
           </div><!-- gigatura avatar container-->
 
-
+          
+          <br /><br />
           
           <span class="btn" id="descargar-avatar">DOWNLOAD</span>
 
-         
+          <br /><br />
+          Now
+          <a href="https://twitter.com/intent/tweet?screen_name=Gigatura&ref_src=twsrc%5Etfw" class="twitter-mention-button" data-size="large" data-text="I just got my GIGA SCORE! Find yours at: https://gigascore.netlify.app/" data-related="gigatura" data-show-count="false">Tweet your GIGA Score!</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
+          and <strong>don't forget to embed in this tweet the Gigatura card you just got!</strong> This will be needed for the next step.
+          <br /><br />
+
+          Join our <a href="https://t.me/gigatura">Telegram group</a> and share with us your tweet, along with your Tezos address.
+          <br />
+          By completing this tasks you will receive one NFT edition of the Gigatura's People collage at our launch party (date TBD).
+
           
           <div id="canvas">
             <!-- Jack: Add a canvas for offScreen Rendering  -->
             <canvas id="offScreenCanvas"></canvas>
           </div>
         </div><!-- /socialscore -->
-      </div><!-- /lightbox -->
+      <!-- </div> /lightbox -->
 
       
       
