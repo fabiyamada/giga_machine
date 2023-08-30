@@ -28,10 +28,6 @@ function selectedAnswer(questionNumber, qyn){
 $('.btn_start').click(function(){
     $(this).fadeOut(100);
     $('#start_test').addClass('test_started');
-    $('.test_userinfo').fadeIn(600); 
-});
-
-$('.btn_sendinfo').click(function(){
     socialscore = 0;
     userTwitter = $('#usertwitter').val();
     userTezos = $('#usertezos').val();
@@ -95,13 +91,13 @@ $('#q04 .btn_no').click(function(){
 });
 
 $('#q05 .btn_yes').click(function(){
-    q05 = 105;
+    q05 = 0;
     selectedAnswer('#q05', '.btn_yes');
     socialScoreSum()
     consoleLog();
 });
 $('#q05 .btn_no').click(function(){
-    q05 = 0;
+    q05 = 105;
     selectedAnswer('#q05', '.btn_no');
     socialScoreSum()
     consoleLog();
@@ -175,34 +171,83 @@ var foregroundimg
 
 
 // fix socialscorewidth with scale to fit body width
-function setSocialScoreScale(){
-    var lightboxW = $('.lightbox').width();
-    var socialdivwidth = $('.socialscore').width();
-    var findScale = lightboxW / (socialdivwidth + 60);
+function setAvatarScale(){
+    var socialScoreW = $('.socialscore').width();
+    var gigatura_avatarW = $('#gigatura_avatar').width();
+    var findScale
     
-    $('.socialscore').css('transform', 'scale(' + findScale + ' )');
+    if(socialScoreW <= 500){
+        findScale = socialScoreW / (gigatura_avatarW);
+    }else{
+        findScale = 1;
+    }
+    $('#gigatura_avatar').css('transform', 'scale(' + findScale + ' )');
 
+        var newAvatarW = $('#gigatura_avatar')[0].getBoundingClientRect().width;
+        $('#ga_container').css(
+            {
+            'width': newAvatarW + 'px',
+            'height': newAvatarW + 'px',
+            }
+            );
 }
 
 $('#submitTest').click(function(){
     window.scrollTo(0,0);
+    $('body').addClass('showingResult');
+    $('.test').fadeOut();
+    $('.welcome_msg').fadeOut();
 
     $('.lightbox').fadeIn();
+    $('.lightbox').css('visibility','visible');
 
+    $('.socialscore').removeClass('hidden'); 
     $('.socialscore').fadeIn();
     $('.yoursocialscore').text(socialscore);
     $('#socialscorenumber span').text(socialscore);
+
+    function setTextImg(){
+        $('.text_score').css('display', 'none')
+        $('#' + resulttext).fadeIn();
+        $('#foreground').attr("src", foregroundimg);
+        console.log(foregroundimg);
+        console.log(resulttext)
+    }
  
-    if(socialscore >= 300 && socialscore <= 499 ){
-        foregroundimg = "img/foreground_300.png";
-        $('#foreground').attr("src", foregroundimg);
-        console.log(foregroundimg)
-    }else if(socialscore >= 500){
-        foregroundimg = "img/foreground_500.png";
-        $('#foreground').attr("src", foregroundimg);
+    if(socialscore >= 201 && socialscore <= 299 ){
+        resulttext = 'text_rebel';
+        foregroundimg = "img/2_REBEL(201-299).png"; 
+        setTextImg()  
+    }else if(socialscore >= 300 && socialscore <= 399){
+        resulttext = 'text_hacker';
+        foregroundimg = "img/3_HACKER(300-399).png";
+        setTextImg() 
+
+    }else if(socialscore >= 400 && socialscore <= 499){
+        resulttext = 'text_factory';
+        foregroundimg = "img/4_FACTORY(400-499).png";
+        setTextImg() 
+
+    }else if(socialscore >= 500 && socialscore <= 799){
+        resulttext = 'text_wagmi';
+        foregroundimg = "img/5_WAGMI(500-799).png";
+        setTextImg() 
+
+    }else if(socialscore >= 800 && socialscore <= 899){
+        resulttext = 'text_military';
+        foregroundimg = "img/6_MILITARY(800-899).png";
+        setTextImg() 
+
+    }else if(socialscore >= 900){
+        resulttext = 'text_royalty';
+        foregroundimg = "img/7_GIGACORPROYALTY(900-1000).png";
+        setTextImg() 
+
     }else {
-        foregroundimg = "img/foreground_0.png";
-        $('#foreground').attr("src", foregroundimg);
+        resulttext = 'text_jail';
+        foregroundimg = "img/1_JAIL(0-200).png";
+        setTextImg() 
+
     }
 
 
@@ -227,7 +272,7 @@ $('#submitTest').click(function(){
      })
      
 
-     setSocialScoreScale()
+     setAvatarScale()
 
 }); // submit test
 
@@ -235,16 +280,33 @@ $('#submitTest').click(function(){
 
 $( window ).on( "resize", function() {
 
-   setSocialScoreScale()
+   setAvatarScale()
   } );
+
 
 $('.close').click(function(){
     $('.lightbox').fadeOut();
-
     $('.socialscore').fadeOut();
+    $('.test').fadeIn();
+    $('body').removeClass('showingResult');
+    $('.welcome_msg').fadeIn();
 
 });
 
+
+function pfpOrientation(){
+    var imgAvatarW = $('#image_avatar')[0].getBoundingClientRect().width;
+    var imgAvatarH = $('#image_avatar')[0].getBoundingClientRect().height;
+
+    if(imgAvatarW > imgAvatarH ){
+        $('#image_avatar').css({'height': '100%', 'width': 'auto'})
+    }else{
+        $('#image_avatar').css({'height': 'auto', 'width': '100%'})
+    }
+
+    alert(imgAvatarW);
+    alert(imgAvatarH);
+}
 
 // upload profile pic
 $(document).ready(function(){
@@ -260,9 +322,10 @@ $(document).ready(function(){
 			reader.readAsDataURL(files[0]);
 			reader.onloadend = function(){
 				$pic.appendTo("#preview");
-				$("#image_avatar").attr("src", this.result);
-			} 
-	}});
+				$("#image_avatar").attr("src", this.result);  
+			}       
+	}
+});
 
     
     const captureButton = document.getElementById('descargar-avatar');
@@ -298,7 +361,14 @@ $(document).ready(function(){
         0, 0, canvas.width, canvas.height)
     // draw foreground over :
     canvasCtx.drawImage(ImgForeground, 0, 0,  canvas.width, canvas.height)
-    
+    // setup font to draw :
+    canvasCtx.font = "24px Kremlin"
+    canvasCtx.fillStyle = "#fff"
+    // align number :
+    const alignFontX = 24 + (socialscore === 0 ? 15 : (socialscore < 100 ? 7 : (socialscore < 200 ? 3 : -2 )))
+    const alignFontY = canvas.height - 34
+    // draw social score :
+    canvasCtx.fillText(socialscore, alignFontX, alignFontY)
     // show canvas :
     const HTMLcanvas = document.getElementById(`canvas`)
     HTMLcanvas.style.opacity = 1
@@ -307,7 +377,7 @@ $(document).ready(function(){
     // assign to link DOWNLOAD :
     const link = document.createElement('a')
     link.href = canvas.toDataURL()
-    link.download = 'gigacorp_profile.png'
+    link.download = 'my_gigatura_card.png'
     
     // trigger :
     link.click()
