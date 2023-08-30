@@ -304,8 +304,8 @@ function pfpOrientation(){
         $('#image_avatar').css({'height': 'auto', 'width': '100%'})
     }
 
-    alert(imgAvatarW);
-    alert(imgAvatarH);
+  //  alert(imgAvatarW);
+  //  alert(imgAvatarH);
 }
 
 // upload profile pic
@@ -323,6 +323,12 @@ $(document).ready(function(){
 			reader.onloadend = function(){
 				$pic.appendTo("#preview");
 				$("#image_avatar").attr("src", this.result);  
+
+                // Wait for the image to load completely before calling pfpOrientation
+                $('#image_avatar').on('load', function() {
+                    pfpOrientation();
+                });
+
 			}       
 	}
 });
