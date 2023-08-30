@@ -22,7 +22,10 @@ html, body{
 
     overflow: visible;
 }
+a{
+    color:#0099ff;
 
+}
 .container{
     width:70%;
     margin:0 auto;
@@ -55,6 +58,7 @@ html, body{
     cursor:pointer;
     transition: all .5s;
     box-shadow:-5px 5px 1px 1px rgba(0, 0, 0, 0.2);
+    margin-top:50px;
 
 }
 .btn_start:hover{
@@ -118,18 +122,26 @@ html, body{
     min-height: 100vh;
     overflow: scroll;
 }
-.socialscore{
-
-    min-width: 560px;
+.showingResult{
     background:#212121;
     color:#fff;
+
+}
+.socialscore{
     margin:auto;
     text-align: center;
-    padding:30px;
-    transform-origin: top left;
+    padding:0 30px 30px 30px;
+}
+.hidden{
+    opacity: 0;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+    position:absolute;
+    margin:0;
 }
 .yoursocialscore{
-    font-size: 70px;
+    font-size: 30px;
 }
 .close{
     position:absolute;
@@ -137,13 +149,15 @@ html, body{
     right:2px;
     background:#fff;
     color:#000;
-    border-radius:50% 0px 50% 50%;
+    border-radius:15px 0px 15px 15px;
     height:30px;
-    width:30px;
     text-align: center;
     line-height: 30px;
     cursor:pointer;
     font-weight: 600;
+    font-size:14px;
+    list-style: none;
+    padding:0 10px;
     transition:all .5s;
 }
 .close:hover{
@@ -171,7 +185,6 @@ html, body{
     height: 100%;
 }
 #image_avatar{
-    max-width:100%;
     position:absolute;
     z-index: 100;
     top:0; right:0; bottom:0; left:0;
